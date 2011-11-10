@@ -211,13 +211,13 @@
 	}
 
 	$headlinks2="
-	<a href='/index.php'>Main</a>
-	- <a href='/memberlist.php'>Memberlist</a>
-	- <a href='/activeusers.php'>Active users</a>
-	- <a href='/calendar.php'>Calendar</a>
+	<a href='index.php'>Main</a>
+	- <a href='memberlist.php'>Memberlist</a>
+	- <a href='activeusers.php'>Active users</a>
+	- <a href='calendar.php'>Calendar</a>
 	- <a href='http://tcrf.net'>Wiki</a>
-	- <a href='/irc.php'>IRC Chat</a>
-	- <a href='/online.php'>Online users</a><br>
+	- <a href='irc.php'>IRC Chat</a>
+	- <a href='online.php'>Online users</a><br>
 	<a href='/ranks.php'>Ranks</a>
 	- <a href='/faq.php'>Rules/FAQ</a>
 	- <a href='/acs.php'>JCS</a>
