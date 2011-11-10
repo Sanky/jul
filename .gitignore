@@ -17,7 +17,7 @@ numgfx/
 # Trade secrets
 lib/config.php
 lib/firewall.php
-
+.htaccess
 
 irc.php
 

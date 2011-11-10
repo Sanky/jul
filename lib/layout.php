@@ -218,13 +218,13 @@
 	- <a href='http://tcrf.net'>Wiki</a>
 	- <a href='irc.php'>IRC Chat</a>
 	- <a href='online.php'>Online users</a><br>
-	<a href='/ranks.php'>Ranks</a>
-	- <a href='/faq.php'>Rules/FAQ</a>
-	- <a href='/acs.php'>JCS</a>
-	- <a href='/stats.php'>Stats</a>
-	- <a href='/latestposts.php'>Latest Posts</a>
-	- <a href='/hex.php' title='Color Chart' class='popout' target='_blank'>Color Chart</a>
-	- <a href='/smilies.php' title='Smilies' class='popout' target='_blank'>Smilies</a>
+	<a href='ranks.php'>Ranks</a>
+	- <a href='faq.php'>Rules/FAQ</a>
+	- <a href='acs.php'>JCS</a>
+	- <a href='stats.php'>Stats</a>
+	- <a href='latestposts.php'>Latest Posts</a>
+	- <a href='hex.php' title='Color Chart' class='popout' target='_blank'>Color Chart</a>
+	- <a href='smilies.php' title='Smilies' class='popout' target='_blank'>Smilies</a>
 	";
 
 
