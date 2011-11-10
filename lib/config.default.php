@@ -14,3 +14,6 @@
 	$boardtitle		= "This file isn't actually used";
 	$siteurl		= "http://sorry.to.disappoi.nt";
 	$sitename		= "Oh well";
+	
+	$conf = array();
+	$conf['enableirc'] = false;

@@ -1147,11 +1147,13 @@ function addslashes_array($data) {
 	}
 
 	function xk_ircsend($str) {
+		global $conf;
+		if (!$conf['enableirc']) return; // Don't report anything
 		$str	= str_replace(array("%10", "%13"), array("", ""), rawurlencode($str));
 
 		$ch = curl_init();
-		
-		
+
+
 		// Note to potential dumbasses: this does check the incoming IP so don't bother.
 		curl_setopt ($ch,CURLOPT_URL, "http://treeki.shacknet.nu:5000/reporting.php?t=$str");
 		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
