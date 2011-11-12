@@ -1,5 +1,7 @@
 <?php
-
+	// TODO: <nobr> must be replaced with a CSS alternative
+	// TODO: Figure out what to do with align="absmiddle"
+	
 	if ($_GET['u']) {
 		header("Location: profile.php?id=". $_GET['u']);
 		die();
@@ -52,12 +54,14 @@
 
 		$users1 = mysql_query("SELECT id,name,birthday,sex,powerlevel FROM users WHERE FROM_UNIXTIME(birthday,'%m-%d')='".date('m-d',ctime() + $tzoff)."' AND birthday ORDER BY name");
 		for ($numbd=0;$user=mysql_fetch_array($users1);$numbd++) {
-			if(!$numbd) $blist="<tr>$tccell2s colspan=5>Birthdays for ".date('F j',ctime()).': ';
+			if(!$numbd) $blist="<tr>$tccell2s colspan=\"5\">Birthdays for ".date('F j',ctime()).': ';
 			else $blist.=', ';
 			$users[$user[id]]=$user;
 			$y=date('Y',ctime())-date('Y',$user[birthday]);
-			$namecolor=getnamecolor($user[sex],$user[powerlevel]);
-			$blist.="<a href=profile.php?id=$user[id]><font $namecolor>$user[name]</font></a> ($y)"; 
+			//$namecolor=getnamecolor($user[sex],$user[powerlevel]);
+			//$blist.="<a href=\"profile.php?id=$user[id]\"><font $namecolor>$user[name]</font></a> ($y)"; 
+			$blist .= printusername($user) . " ($y)";
+			
 		}
 		
 		$onlinetime=ctime()-300;
@@ -68,11 +72,8 @@
 		for ($numon=0; $onuser=mysql_fetch_array($onusers);$numon++) {
 			if($numon) { $onlineusers.=', '; }
 			
-			$namecolor=explode("=", getnamecolor($onuser[sex],$onuser[powerlevel]));
-			$namecolor=$namecolor[1];
+			$namelink = printusername($onuser);
 			
-			$namelink="<a href=profile.php?id=$onuser[id] style='color: #$namecolor'>$onuser[name]</a>";
-
 			if($onuser[minipic]) {
 				$onuser[minipic]='<img width="16" height="16" src="'.str_replace('"','%22',$onuser[minipic]).'" align="absmiddle"> ';
 			}
@@ -87,7 +88,7 @@
 		if($onlineusers) $onlineusers=': '.$onlineusers;
 
 		if($log){
-			$headlinks.=' - <a href=index.php?action=markallforumsread>Mark all forums read</a>';
+			$headlinks.=' - <a href=\"index.php?action=markallforumsread\">Mark all forums read</a>';
 			$header=makeheader($header1,$headlinks,$header2);
 		}
 
@@ -118,10 +119,11 @@
 			$statsblip	= $sql->resultq("SELECT COUNT(*) FROM `threads` WHERE `lastpostdate` > '". (ctime() - 86400) ."'") ." threads and ". $sql->resultq("SELECT COUNT(*) FROM `users` WHERE `lastposttime` > '". (ctime() - 86400) ."'") ." users active during the last day."; 
 		}
 
+		// TODO: Try having the markup use CSS
 	  print "$header
 		<br>
 		$tblstart
-		 $tccell1s><table width=100%><td class=fonts>$logmsg</td><td align=right class=fonts>$count[u] registered users<br>Latest registered user: <a href=profile.php?id=$lastuser[id]><font $namecolor>$lastuser[name]</font></a></table>
+		 $tccell1s><table width=\"100%\"><td class=\"fonts\">$logmsg</td><td align=\"right\" class=\"fonts\">$count[u] registered users<br>Latest registered user: <a href=\"profile.php?id=$lastuser[id]\"><font $namecolor>$lastuser[name]</font></a></table>
 		 $blist<tr>
 		$tccell2s>$count[t] threads and $count[p] posts in the board | $statsblip<tr>
 		 $tccell1s>$numonline user".($numonline>1?'s':'')." currently online$onlineusers$guestcount
@@ -138,12 +140,13 @@
 		$pmsgnum=mysql_result(mysql_query("SELECT COUNT(*) FROM pmsgs WHERE userto=$loguserid"),0,0);
 		$pmsgnew=mysql_result(mysql_query("SELECT COUNT(*) FROM pmsgs WHERE userto=$loguserid AND msgread=0"),0,0);
 		if($pmsgnew) $new=$statusicons['new'];
-		$namecolor=getnamecolor($pmsg[sex],$pmsg[powerlevel]);
-		$lastmsg="Last message from <a href='profile.php?id=$pmsg[id]' $namecolor>$pmsg[name]</a> on ".date($dateformat,$pmsg[date]+$tzoff);
+		//$namecolor=getnamecolor($pmsg[sex],$pmsg[powerlevel]);
+		//$lastmsg="Last message from <a href='profile.php?id=$pmsg[id]' $namecolor>$pmsg[name]</a> on ".date($dateformat,$pmsg[date]+$tzoff);
+		$lastmsg="Last message from ".printusername($psmg)." on ".date($dateformat,$pmsg[date]+$tzoff);
 		}
 		$privatebox="
 		$tblstart
-		$tccellhs colspan=2>Private messages<tr>
+		$tccellhs colspan=\"2\">Private messages<tr>
 		$tccell1>$new</td>
 		$tccell2l><a href='private.php'>Private messages</a> -- You have $pmsgnum private messages ($pmsgnew new). $lastmsg
 		$tblend<br>
@@ -165,21 +168,26 @@
 	$mod=mysql_fetch_array($mods);
 	
 	while($category=mysql_fetch_array($categories))	{
-		$forumlist.="<tr><td class='tbl tdbgc center font' colspan=5><a href=index.php?cat=$category[id]>$category[name]";
+		$forumlist.="<tr><td class='tbl tdbgc center font' colspan=\"5\"><a href=index.php?cat=$category[id]>$category[name]</td></tr>";
 		for (;$forum[catid]==$category[id];$modlist='') {
 			for ($m=0;$mod[forum]==$forum[id];$m++) {
-				$namecolor=getnamecolor($mod[sex],$mod[powerlevel]);
-				$modlist.=($m?', ':'')."<a href=profile.php?id=$mod[id]><font $namecolor>$mod[name]</font></a>";
+				//$namecolor=getnamecolor($mod[sex],$mod[powerlevel]);
+				//$modlist.=($m?', ':'')."<a href=\"profile.php?id=$mod[id]\"><font $namecolor>$mod[name]</font></a>";
+				$modlist.=($m?', ':'').printusername($mod);
 				$mod=mysql_fetch_array($mods);
 			}
 			
 			if($m) $modlist="$smallfont(moderated by: $modlist)</font>";
 			
-			$namecolor=getnamecolor($forum[sex],$forum[powerlevel]);
+			//$namecolor=getnamecolor($forum[sex],$forum[powerlevel]);
+
+			// Needed for compatibility, otherwise you could've just fed printusername $forum directly.
+			$lastposter = array('id' => $forum[uid], 'name' => $forum[name], 'sex' => $forum[sex], 'powerlevel' => $forum[powerlevel]);
 			
 			if($forum[numposts]){
 				$forumlastpost="<nobr>". date($dateformat,$forum[lastpostdate]+$tzoff);
-				$by="$smallfont<br>by <a href=profile.php?id=$forum[uid]><font $namecolor>$forum[name]</font></a>". ($forum['lastpostid'] ? " <a href='thread.php?pid=". $forum['lastpostid'] ."#". $forum['lastpostid'] ."'>". $statusicons['getnew'] ."</a>" : "") ."</nobr></font>";
+				//$by="$smallfont<br>by <a href=\"profile.php?id=$forum[uid]\"><font $namecolor>$forum[name]</font></a>". ($forum['lastpostid'] ? " <a href='thread.php?pid=". $forum['lastpostid'] ."#". $forum['lastpostid'] ."'>". $statusicons['getnew'] ."</a>" : "") ."</nobr></font>";
+				$by="$smallfont<br>by ". printusername($lastposter) . ($forum['lastpostid'] ? " <a href='thread.php?pid=". $forum['lastpostid'] ."#". $forum['lastpostid'] ."'>". $statusicons['getnew'] ."</a>" : "") ."</nobr></font>";
 			} else {
 				$forumlastpost='-------- --:-- --';
 				$by='';
@@ -211,11 +219,11 @@
 			if($cat=='' or $cat==$category[id])
 			  $forumlist.="
 				<tr>$tccell1>$new</td>
-				$tccell2l><a href=forum.php?id=$forum[id]>$forum[title]</a><br>
+				$tccell2l><a href=\"forum.php?id=$forum[id]\">$forum[title]</a><br>
 				$smallfont$forum[description]<br>$modlist</td>
 				$tccell1>$forum[numthreads]</td>
 				$tccell1>$forum[numposts]</td>
-				$tccell2><span class='lastpost'>$forumlastpost</span>$by$forumlastuser
+				$tccell2><span class='lastpost'>$forumlastpost</span>$by$forumlastuser</td></tr>
 			  ";
 			$forum=mysql_fetch_array($forums);
 		}
