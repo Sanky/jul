@@ -61,7 +61,6 @@
   print "$tccellh width=60> Posts<tr>";
   for($i=1;$user=mysql_fetch_array($posters);$i++){
     if($i>1) print '<tr>';
-    $namecolor=getnamecolor($user[sex],$user[powerlevel]);
     $user[lastposttime]=date($dateformat,$user[lastposttime]+$tzoff);
     if(!$user[posts]) $user[lastposttime]='-------- --:-- --';
     $user[lasturl]=str_replace('<','&lt;',$user['lasturl']);
@@ -78,7 +77,7 @@
 
     print "
 	$tccell1>$i</td>
-	$tccell2l><a href=profile.php?id=$user[id]><font $namecolor>$user[name]</td>
+	$tccell2l>".printusername($user)."</td>
 	$tccell1>".date('h:i:s A',$user[lastactivity]+$tzoff)."</td>
 	$tccell1>$user[lastposttime]</td>
     $lasturltd";

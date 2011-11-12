@@ -70,11 +70,10 @@
     if($id){
 	$anncs=mysql_query('SELECT announcements.id,user,date,announcements.title,name,sex,powerlevel FROM announcements,users WHERE forum=0 AND user=users.id ORDER BY date DESC LIMIT 1');
 	if($annc=mysql_fetch_array($anncs)){
-	  $namecolor=getnamecolor($annc[sex],$annc[powerlevel]);
 	  print "
 	    <td colspan=7 class='tbl tdbgh center fonts'>Announcements<tr>
 	    <td class='tbl tdbg2 font center'>". ($loguser['lastannouncement'] < $annc['id'] && $loguser['id'] ? $newpic : "&nbsp;") ."</td>
-		<td colspan=6 class='tbl tdbg1 font'><a href=announcement.php>$annc[title]</a> -- Posted by <a href=profile.php?id=$annc[user]><font $namecolor>$annc[name]</font></a> on ".date($dateformat,$annc[date]+$tzoff)."<tr>
+		<td colspan=6 class='tbl tdbg1 font'><a href=announcement.php>$annc[title]</a> -- Posted by ".printusername($annc)." on ".date($dateformat,$annc[date]+$tzoff)."<tr>
 	  ";
 	}
 	$anncs=mysql_query("SELECT user,date,announcements.title,name,sex,powerlevel FROM announcements,users WHERE forum=$id AND user=users.id ORDER BY date DESC LIMIT 1");
@@ -82,7 +81,7 @@
 	  $namecolor=getnamecolor($annc[sex],$annc[powerlevel]);
 	  print "
 	    $tccellhs colspan=7>Forum announcements<tr>
-	    $tccell1l colspan=7><a href=announcement.php?f=$id>$annc[title]</a> -- Posted by <a href=profile.php?id=$annc[user]><font $namecolor>$annc[name]</font></a> on ".date($dateformat,$annc[date]+$tzoff)."<tr>
+	    $tccell1l colspan=7><a href=announcement.php?f=$id>$annc[title]</a> -- Posted by ".printusername($annc)." on ".date($dateformat,$annc[date]+$tzoff)."<tr>
 	  ";
 	}
     }

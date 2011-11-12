@@ -15,7 +15,7 @@
 	$postlist="
 	  $tccellh width=150>User</td>
 	  $tccellh>Message<tr>
-	  $tcellbg><a href=profile.php?id=$user[id]>$user[name]</a>$smallfont<br>
+	  $tcellbg>".printusername($user)."$smallfont<br>
 	  Posts: $postnum$user[posts]</td>
 	  $tcellbg>".doreplace2($msg[text])."<tr>
 	";

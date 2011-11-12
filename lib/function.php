@@ -835,7 +835,7 @@ function printusername($user) {
 	$namecolor = explode("=", getnamecolor($user[sex],$user[powerlevel]));
 	$namecolor = $namecolor[1];
 	// Return the HTML for a colored username link.
-	return "<a href=\"profile.php?id=$user[id]\" style=\"color: #$namecolor\">$user[name]</a>";
+	return "<a href=\"profile.php?id=$user[id]\" style=\"color: #$namecolor;\">$user[name]</a>";
 }
 
 function redirect($url,$msg,$delay){
@@ -856,8 +856,7 @@ function postradar($userid){
 				$t=(!$hacks['noposts'] ? $dif : "") ." behind";
 			}
 			if($dif==0) $t=' tied with';
-			$namecolor=getnamecolor($b[sex],$b[powerlevel]);
-			$namelink="<a href=profile.php?id=$b[4]><font $namecolor>$b[name]</font></a>";
+			$namelink=printusername($b);
 			$t.=" $namelink". (!$hacks['noposts'] ? " ($b[1])" : "");
 			return $t;
 		}

@@ -74,10 +74,11 @@
 
 			$tdl=str_replace(' center','',$td);
 			if($view==0 or ($view==1 and ($r<=$rcount or $n==$user[name]))) {
+			    // (!$_GET['dur'] ? $user[name] : "DU". str_repeat("R", mt_rand(1,25)
 				print "
 					<tr>
 					$td>$b$r</b></td>
-					$tdl><a href=profile.php?id=$user[id]><font ".getnamecolor($user[sex],$user[powerlevel]).">". (!$_GET['dur'] ? $user[name] : "DU". str_repeat("R", mt_rand(1,25))) ."</font></a></td>
+					$tdl>".printusername($user)."</td>
 					$td>$b$user[cnt]</b></td>
 					$tdl><img src=images/$numdir"."bar-on.gif width=".($user[cnt]*100/$max)."% height=8>
 					";

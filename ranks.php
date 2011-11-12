@@ -44,8 +44,7 @@
     $usertotal=mysql_result(mysql_query("SELECT COUNT(*) FROM users WHERE posts>=$rank[num]"),0,0);
     $users=mysql_query("SELECT id,name,sex,powerlevel FROM users WHERE posts>=$rank[num] AND posts<$rankn[num] $useranks AND (lastactivity>$btime OR lastposttime>$btime) ORDER BY name");
     for($u=0;$user=mysql_fetch_array($users);$u++){
-	$namecolor=getnamecolor($user[sex],$user[powerlevel]);
-	$userlisting.=($u?', ':'')."<a href=profile.php?id=$user[id]><font $namecolor>$user[name]</font></a>";
+	$userlisting.=($u?', ':'').printusername($user);
     }
     $dif=$usercount-mysql_num_rows($users);
     if($dif) $userlisting.=($userlisting?', ':'')."$dif inactive";

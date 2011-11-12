@@ -1,4 +1,4 @@
-<?php
+<?php 
   require "lib/function.php";
   $windowtitle = "Member Links";
   require "lib/layout.php";
@@ -15,11 +15,10 @@
     $i++;
     $hpage="<a href=$user[homepageurl]>$user[homepagename]";
     $url="<a href=$user[homepageurl]>$user[homepageurl]";
-    $namecolor=getnamecolor($user[sex],$user[powerlevel]);
     if($user[minipic]) $minipic="<img width=11 height=11 src=\"$user[minipic]\">"; else $minipic="&nbsp;";
     print "
 	$tccell2 width=13>$minipic</td>
-	$tccell2l><a href=profile.php?id=$user[id]><font $namecolor>$user[name]</td>
+	$tccell2l>".printusername($user)."</td>
 	$tccell2>$hpage</td>
 	$tccell2>$url</td>
 	$tccell2>$user[posts]</td></tr>";

@@ -148,7 +148,7 @@
     $ulist.="
 	$tccell2>".($i+1).".</td>
 	$tccell1l>$userpicture</td>
-	$tccell2l><a href=profile.php?id=$t><font $namecolor>$user[3]</font></a></td>
+	$tccell2l>".printusername($user)."</td>
     ";
     if(!$rpg){
 	$ulist.="

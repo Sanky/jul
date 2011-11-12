@@ -33,8 +33,7 @@
     if($date[mon]==$month){
 	$dd=$date[mday];
 	$age=$year-$date[year];
-	$namecolor=getnamecolor($user[sex],$user[powerlevel]);
-	$bdaytext[$dd].="<br>- <a href=profile.php?id=$user[id]><font $namecolor>$user[name]</font></a> turns $age";
+	$bdaytext[$dd].="<br>- ".printusername($user)." turns $age";
     }
   }
   $events=mysql_query("SELECT id,d,title FROM events WHERE m=$month AND y=$year ORDER BY id");

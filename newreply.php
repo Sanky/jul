@@ -66,9 +66,8 @@
       if(round($threadpostcount/2)==$threadpostcount/2) $bg='tdbg2';
       $postnum=($post[num]?"$post[num]/":'');
       $tcellbg="<td class='tbl $bg font' valign=top>";
-      $namecolor=getnamecolor($post[sex],$post[powerlevel]);
       $postlist.="
-	  $tcellbg<a href=profile.php?id=$post[user]><font $namecolor>$post[name]</font></a>$smallfont<br>
+	  $tcellbg".printusername($post)."$smallfont<br>
 	  Posts: $postnum$post[posts]</td>
 	  $tcellbg".doreplace2(dofilters($post[text]), $post[options])."<tr>
       ";
