@@ -1,4 +1,6 @@
 <?php
+	// TODO: Add markup quotes
+
 	// dear xkeeper:
 	// removing most images and dropping the file size a good mobile site does not make
 	// cattishly yours,
@@ -55,11 +57,11 @@
 	$inpt='<input type="text" name';
 	$inpp='<input type="password" name';
 	$inph='<input type="hidden" name';
-	$inps='<input type="submit" class=submit name';
-	$inpc="<input type=checkbox name";
-	$radio='<input type=radio class=radio name';
-	$txta='<textarea wrap=virtual name';
-	$tblstart='<table class="table" cellspacing=0>';
+	$inps='<input type="submit" class="submit" name';
+	$inpc='<input type="checkbox" name';
+	$radio='<input type="radio" class="radio" name';
+	$txta='<textarea wrap="virtual" name';
+	$tblstart='<table class="table" cellspacing="0">';
 	$tblend='</table>';
 	$sepn=array('Dashes','Line','Full horizontal line','None');
 	$sep=array('<br><br>--------------------<br>',
@@ -181,7 +183,7 @@
 
 	if($loguserid) {
 		$headlinks='
-		<a href="javascript:document.logout.submit()">Logout</a>
+		<form action="login.php" method="post" name="logout"><input type="hidden" name="action" value="logout"></form><a href="javascript:document.logout.submit()">Logout</a>
 		- <a href="editprofile.php">Edit profile</a>
 		- <a href="shop.php">Item shop</a>';
 		
@@ -280,13 +282,14 @@
 			$pmsgnum  = mysql_result(mysql_query("SELECT COUNT(*) FROM pmsgs WHERE userto=$loguserid"),0,0);
 			$pmsgnew  = mysql_result(mysql_query("SELECT COUNT(*) FROM pmsgs WHERE userto=$loguserid AND msgread=0"),0,0);
 			if($pmsgnew) { $new=$newpic; }
-			$namecolor =  getnamecolor($pmsg[sex],$pmsg[powerlevel]);
-			$lastmsg   =  "Last message from <a href=profile.php?id=$pmsg[id]><font $namecolor>$pmsg[name]</font></a> on ".date($dateformat,$pmsg[date]+$tzoff);
+			//$namecolor =  getnamecolor($pmsg[sex],$pmsg[powerlevel]);
+			//$lastmsg   =  "Last message from <a href=profile.php?id=$pmsg[id]><font $namecolor>$pmsg[name]</font></a> on ".date($dateformat,$pmsg[date]+$tzoff);
+			$lastmsg   =  "Last message from ".printusername($pmsg)." on ".date($dateformat,$pmsg[date]+$tzoff);
 		}
 
 		if ($pmsgnew != 1) $ssss = "s";
 		if ($pmsgnew > 0) $privatebox="
-		<tr><td colspan=3 class='tbl tdbg2 center fonts'>$new <a href=private.php>You have $pmsgnew new private message$ssss</a> -- $lastmsg
+		<tr><td colspan=\"3\" class='tbl tdbg2 center fonts'>$new <a href=\"private.php\">You have $pmsgnew new private message$ssss</a> -- $lastmsg
 		";
 		else $privatebox = "";
 	}
@@ -319,6 +322,8 @@
 		$css = "";
 		$css = "<link rel='stylesheet' href='/mobile.css'>";
 	}
+	//Just leaving this doctype here for now.
+	$headerdoctype="<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">";
 	$header1="<html><head><title>$windowtitle</title>
 	<link rel=\"shortcut icon\" href=\"/favicon". (!$x_hacks['host'] ? rand(1,8) ."" : "" ) .".ico\" type=\"image/x-icon\">
 	$css
@@ -328,7 +333,6 @@
 	$yyy
 	<center>
 	 $tblstart
-	  <form action='login.php' method='post' name='logout'><input type='hidden' name='action' value='logout'></form>
 	  <td class='tbl tdbg1 center' colspan=3>$boardtitle";
   $header2="
 	  ". (!$x_hacks['smallbrowse'] ? "
