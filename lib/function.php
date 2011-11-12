@@ -723,7 +723,6 @@ function fonlineusers($id){
 	return "$numon user$s currently in $forumname$p $onlineusers $guests";
 }
 
-
 // BIG GIANT GROSS HACK OH MY GOD.
 function getnamecolor($sex,$powl){
 	global $nmcol, $x_hacks;
@@ -825,6 +824,18 @@ function getnamecolor($sex,$powl){
 	}
 
   return $namecolor;
+}
+
+// --Drag
+// Output an appropriately formatted colored username link.
+// $user is an array with keys: id, name, sex, powerlevel -- you're probably querying mySQL for these right beforehand.
+function printusername($user) {
+	// Get the username color, and isolate the color part.
+	// This is so getnamecolor can be left alone until all instances of username links use this function.
+	$namecolor = explode("=", getnamecolor($user[sex],$user[powerlevel]));
+	$namecolor = $namecolor[1];
+	// Return the HTML for a colored username link.
+	return "<a href=\"profile.php?id=$user[id]\" style=\"color: #$namecolor\">$user[name]</a>";
 }
 
 function redirect($url,$msg,$delay){
